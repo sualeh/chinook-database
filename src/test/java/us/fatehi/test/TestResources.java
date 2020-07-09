@@ -26,11 +26,12 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -41,11 +42,33 @@ public class TestResources
   public void checkResources()
     throws IOException
   {
-    final Resource chinookDb2Sql = new ClassPathResource("chinook_database/Chinook_Db2.sql");
-    assertThat(chinookDb2Sql, is(not(nullValue())));
-    assertThat(chinookDb2Sql.exists(), is(true));
-    assertThat(chinookDb2Sql.isReadable(), is(true));
-    assertThat(chinookDb2Sql.contentLength(), is(greaterThan(0L)));
+
+    Arrays
+      .stream(new String[] {
+        "Chinook_Db2.sql",
+        "Chinook_MySql.sql",
+        "Chinook_MySql_AutoIncrementPKs.sql",
+        "Chinook_Oracle.sql",
+        "Chinook_PostgreSql.sql",
+        "Chinook_Sqlite.sql",
+        "Chinook_Sqlite_AutoIncrementPKs.sql",
+        "Chinook_SqlServer.sql",
+        "Chinook_SqlServer_AutoIncrementPKs.sql",
+        })
+      .forEach(classPathResource -> {
+        final Resource chinookSql = new ClassPathResource("chinook_database/" + classPathResource);
+        assertThat(classPathResource, chinookSql, is(not(nullValue())));
+        assertThat(classPathResource, chinookSql.exists(), is(true));
+        assertThat(classPathResource, chinookSql.isReadable(), is(true));
+        try
+        {
+          assertThat(classPathResource, chinookSql.contentLength(), is(greaterThan(0L)));
+        }
+        catch (final IOException e)
+        {
+          fail(e);
+        }
+      });
   }
 
 }
