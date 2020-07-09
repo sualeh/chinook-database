@@ -279,10 +279,27 @@
                 <additionalOption>-Xdoclint:none</additionalOption>
               </additionalOptions>
               <bottom>Copyright © 2020 {organizationName}. All rights reserved.</bottom>
-              <doctitle>chinook Database for Java ${project.version}</doctitle>
+              <doctitle>Chinook Database for Java ${project.version}</doctitle>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifestEntries>
+              <Project>${project.name}, ${project.version}</Project>
+              <Author>Sualeh Fatehi, sualeh@hotmail.com</Author>
+              <Implementation-Title>${project.name}</Implementation-Title>
+              <Implementation-Version>${project.version}</Implementation-Version>
+              <Implementation-Vendor>Sualeh Fatehi, sualeh@hotmail.com</Implementation-Vendor>
+              <Main-Class>us.fatehi.chinook_database.Version</Main-Class>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
       <plugin>
         <inherited>true</inherited>
