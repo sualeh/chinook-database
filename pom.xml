@@ -173,7 +173,9 @@
               <target>
                 <get
                   src="https://github.com/lerocha/chinook-database/archive/master.zip"
-                  dest="${project.build.directory}/lerocha-chinook-database.zip"/>
+                  dest="${project.build.directory}/lerocha-chinook-database.zip"
+                  skipexisting="true"
+                  quiet="true"/>
                 <unzip
                   src="${project.build.directory}/lerocha-chinook-database.zip"
                   dest="${project.build.directory}/classes/chinook_database">
