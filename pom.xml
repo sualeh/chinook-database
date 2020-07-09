@@ -197,7 +197,7 @@
                   quiet="true"/>
                 <unzip
                   src="${project.build.directory}/lerocha-chinook-database.zip"
-                  dest="${project.build.directory}/generated-sources/chinook_database">
+                  dest="${project.build.directory}/generated-resources/chinook_database">
                   <patternset>
                     <include name="**/Chinook_*.sql"/>
                   </patternset>
@@ -221,7 +221,7 @@
             <configuration>
               <resources>
                 <resource>
-                  <directory>${project.build.directory}/generated-sources</directory>
+                  <directory>${project.build.directory}/generated-resources</directory>
                 </resource>
               </resources>
             </configuration>
