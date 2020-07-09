@@ -68,8 +68,22 @@
       <version>2.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>5.2.7.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>5.2.7.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+
 
   </dependencies>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
@@ -141,6 +155,11 @@
           <artifactId>maven-antrun-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -165,7 +184,7 @@
         <executions>
           <execution>
             <id>copy-chinook-database-resources</id>
-            <phase>validate</phase>
+            <phase>generate-resources</phase>
             <goals>
               <goal>run</goal>
             </goals>
@@ -178,13 +197,33 @@
                   quiet="true"/>
                 <unzip
                   src="${project.build.directory}/lerocha-chinook-database.zip"
-                  dest="${project.build.directory}/classes/chinook_database">
+                  dest="${project.build.directory}/generated-resources/chinook_database">
                   <patternset>
                     <include name="**/Chinook_*.sql"/>
                   </patternset>
                   <mapper type="flatten"/>
                 </unzip>
               </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-resource</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>add-resource</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>${project.build.directory}/generated-resources</directory>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
@@ -255,6 +294,7 @@
             <arg>--pinentry-mode</arg>
             <arg>loopback</arg>
           </gpgArguments>
+          <skip>${skip.signing.artifacts}</skip>
         </configuration>
         <executions>
           <execution>
