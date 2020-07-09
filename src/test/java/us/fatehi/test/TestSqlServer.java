@@ -27,8 +27,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.jupiter.api.Test;
@@ -42,25 +42,19 @@ public class TestSqlServer
 {
 
   @Container
-  private JdbcDatabaseContainer dbContainer = new MSSQLServerContainer<>();
+  private JdbcDatabaseContainer dbContainer =
+    new MSSQLServerContainer<>()
+/*      .withDatabaseName("Chinook")
+      .withInitScript(
+      "chinook_database/Chinook_SqlServer.sql")*/;
 
   @Test
   public void sqlServer()
     throws SQLException
   {
-    final DataSource dataSource = createDataSource(dbContainer);
-    assertThat(dataSource.getConnection(), is(not(nullValue())));
-  }
-
-  private static DataSource createDataSource(final JdbcDatabaseContainer dbContainer)
-  {
-    final BasicDataSource ds = new BasicDataSource();
-    ds.setUrl(dbContainer.getJdbcUrl());
-    ds.setUsername(dbContainer.getUsername());
-    ds.setPassword(dbContainer.getPassword());
-    // ds.setDefaultAutoCommit(false);
-
-    return ds;
+    final Connection connection = dbContainer.createConnection("");
+    assertThat(connection, is(not(nullValue())));
+    assertThat(connection.isClosed(), is(false));
   }
 
 }
