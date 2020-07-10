@@ -43,7 +43,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers(disabledWithoutDocker = true)
-public class TestIBMDB2
+public class TestDB2
 {
 
   @Container
