@@ -21,20 +21,15 @@ http://www.eclipse.org/legal/epl-v10.html
 package us.fatehi.test;
 
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.testcontainers.containers.Db2Container;
@@ -47,26 +42,9 @@ public class TestDB2
 {
 
   @Container
-  private final JdbcDatabaseContainer dbContainer =
-    new Db2Container().acceptLicense();
-
-  @BeforeEach
-  public void _createChinookDatabase()
-    throws SQLException
-  {
-    final Connection connection = dbContainer.createConnection("");
-    final EncodedResource chinookSql =
-      new EncodedResource(new ClassPathResource(
-        "chinook_database/Chinook_Db2.sql"), UTF_8);
-    executeSqlScript(connection,
-                     chinookSql,
-                     false,
-                     true,
-                     "--",
-                     ";",
-                     "/*",
-                     "*/");
-  }
+  private final JdbcDatabaseContainer dbContainer = new Db2Container()
+    .acceptLicense()
+    .withInitScript("chinook_database/Chinook_Db2.sql");
 
   @Test
   public void db2()
@@ -78,8 +56,9 @@ public class TestDB2
 
     final JdbcTemplate jdbcTemplate =
       new JdbcTemplate(new SingleConnectionDataSource(connection, true));
-    final Integer count =
-      jdbcTemplate.queryForObject("SELECT COUNT(*) FROM \"Album\"", Integer.class);
+    final Integer count = jdbcTemplate.queryForObject(
+      "SELECT COUNT(*) FROM \"Album\"",
+      Integer.class);
     assertThat(count, is(not(nullValue())));
     assertThat(count, is(347));
   }
