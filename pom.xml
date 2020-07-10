@@ -133,6 +133,18 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.14</version>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>1.14.3</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <properties>
@@ -271,6 +283,15 @@
                   <fileset
                     dir="${project.build.directory}/lerocha-chinook-database-sql"
                     includes="*SqlServer*.sql" />
+                </copy>
+                <copy
+                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  overwrite="true"
+                  encoding="ASCII"
+                  outputencoding="UTF-8">
+                  <fileset
+                    dir="${project.build.directory}/lerocha-chinook-database-sql"
+                    includes="*PostgreSql*.sql" />
                 </copy>
               </target>
             </configuration>
