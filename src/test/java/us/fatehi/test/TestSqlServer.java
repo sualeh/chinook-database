@@ -33,6 +33,7 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,6 +43,7 @@ import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+@EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
 public class TestSqlServer
 {
