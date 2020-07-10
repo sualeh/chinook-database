@@ -81,6 +81,12 @@
       <version>5.2.7.RELEASE</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.2.7.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -114,6 +120,18 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>com.ibm.db2</groupId>
+      <artifactId>jcc</artifactId>
+      <version>11.5.0.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>db2</artifactId>
+      <version>1.14.3</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 
@@ -230,12 +248,30 @@
                   quiet="true"/>
                 <unzip
                   src="${project.build.directory}/lerocha-chinook-database.zip"
-                  dest="${project.build.directory}/generated-resources/chinook_database">
+                  dest="${project.build.directory}/lerocha-chinook-database-sql">
                   <patternset>
                     <include name="**/Chinook_*.sql"/>
                   </patternset>
                   <mapper type="flatten"/>
                 </unzip>
+                <copy
+                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  overwrite="true"
+                  encoding="Cp1252"
+                  outputencoding="UTF-8">
+                  <fileset
+                    dir="${project.build.directory}/lerocha-chinook-database-sql"
+                    includes="*Db2.sql" />
+                </copy>
+                <copy
+                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  overwrite="true"
+                  encoding="UTF-16"
+                  outputencoding="UTF-8">
+                  <fileset
+                    dir="${project.build.directory}/lerocha-chinook-database-sql"
+                    includes="*SqlServer*.sql" />
+                </copy>
               </target>
             </configuration>
           </execution>

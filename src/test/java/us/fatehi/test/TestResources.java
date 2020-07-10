@@ -46,12 +46,14 @@ public class TestResources
     Arrays
       .stream(new String[] {
         "Chinook_Db2.sql",
+        /*
         "Chinook_MySql.sql",
         "Chinook_MySql_AutoIncrementPKs.sql",
         "Chinook_Oracle.sql",
         "Chinook_PostgreSql.sql",
         "Chinook_Sqlite.sql",
         "Chinook_Sqlite_AutoIncrementPKs.sql",
+        */
         "Chinook_SqlServer.sql",
         "Chinook_SqlServer_AutoIncrementPKs.sql",
         })
