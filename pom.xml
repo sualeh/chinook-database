@@ -157,6 +157,12 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>sqlite-jdbc</artifactId>
+      <version>3.32.3</version>
+    </dependency>
+
   </dependencies>
 
   <properties>
@@ -316,6 +322,18 @@
                   <fileset
                     dir="${project.build.directory}/lerocha-chinook-database-sql"
                     includes="*MySql*.sql" />
+                </copy>
+                <copy
+                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  overwrite="true"
+                  encoding="UTF-8"
+                  outputencoding="UTF-8">
+                  <filterchain>
+                    <deletecharacters chars="&#xFEFF;" />
+                  </filterchain>
+                  <fileset
+                    dir="${project.build.directory}/lerocha-chinook-database-sql"
+                    includes="*Sqlite*.sql" />
                 </copy>
               </target>
             </configuration>
