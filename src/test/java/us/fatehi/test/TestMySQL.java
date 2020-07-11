@@ -21,32 +21,52 @@ http://www.eclipse.org/legal/epl-v10.html
 package us.fatehi.test;
 
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
 public class TestMySQL
 {
 
   @Container
-  private JdbcDatabaseContainer dbContainer = new MySQLContainer()
-    .withInitScript("chinook_database/Chinook_MySql.sql");
+  private JdbcDatabaseContainer dbContainer =
+    new MySQLContainer();
+
+  @BeforeEach
+  public void _createChinookDatabase()
+    throws SQLException
+  {
+    final Connection connection = dbContainer.createConnection("");
+    final EncodedResource chinookSql =
+      new EncodedResource(new ClassPathResource(
+        "chinook_database/Chinook_MySql.sql"), UTF_8);
+    executeSqlScript(connection,
+                     chinookSql,
+                     false,
+                     true,
+                     "--",
+                     ";",
+                     "/*",
+                     "*/");
+  }
 
   @Test
   public void mySQL()

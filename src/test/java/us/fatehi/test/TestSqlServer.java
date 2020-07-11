@@ -64,7 +64,7 @@ public class TestSqlServer
                      chinookSql,
                      false,
                      true,
-                     "#",
+                     "--",
                      "GO",
                      "/*",
                      "*/");
