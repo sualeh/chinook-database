@@ -145,6 +145,18 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.20</version>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>mysql</artifactId>
+      <version>1.14.3</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <properties>
@@ -292,6 +304,19 @@
                   <fileset
                     dir="${project.build.directory}/lerocha-chinook-database-sql"
                     includes="*PostgreSql*.sql" />
+                </copy>
+
+                <copy
+                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  overwrite="true"
+                  encoding="UTF-8"
+                  outputencoding="UTF-8">
+                  <filterchain>
+                    <deletecharacters chars="&#xFEFF;" />
+                  </filterchain>
+                  <fileset
+                    dir="${project.build.directory}/lerocha-chinook-database-sql"
+                    includes="*MySql*.sql" />
                 </copy>
               </target>
             </configuration>
