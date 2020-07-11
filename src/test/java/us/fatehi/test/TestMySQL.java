@@ -60,7 +60,7 @@ public class TestMySQL
         "chinook_database/Chinook_MySql.sql"), UTF_8);
     executeSqlScript(connection,
                      chinookSql,
-                     false,
+                     true,
                      true,
                      "--",
                      ";",
@@ -79,10 +79,10 @@ public class TestMySQL
     final JdbcTemplate jdbcTemplate =
       new JdbcTemplate(new SingleConnectionDataSource(connection, true));
     final Integer count = jdbcTemplate.queryForObject(
-      "SELECT COUNT(*) FROM \"Album\"",
+      "SELECT COUNT(*) FROM `Album`",
       Integer.class);
     assertThat(count, is(not(nullValue())));
-    assertThat(count, is(347));
+    assertThat(count, is(306));
   }
 
 }

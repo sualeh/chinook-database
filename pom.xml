@@ -305,7 +305,6 @@
                     dir="${project.build.directory}/lerocha-chinook-database-sql"
                     includes="*PostgreSql*.sql" />
                 </copy>
-
                 <copy
                   todir="${project.build.directory}/generated-resources/chinook_database"
                   overwrite="true"
