@@ -33,24 +33,22 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.testcontainers.containers.JdbcDatabaseContainer;
-import org.testcontainers.containers.MSSQLServerContainer;
+import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
-public class TestSqlServer
+public class TestMySQL
 {
 
   @Container
-  private final JdbcDatabaseContainer dbContainer =
-    new MSSQLServerContainer<>();
+  private JdbcDatabaseContainer dbContainer =
+    new MySQLContainer();
 
   @BeforeEach
   public void _createChinookDatabase()
@@ -59,19 +57,19 @@ public class TestSqlServer
     final Connection connection = dbContainer.createConnection("");
     final EncodedResource chinookSql =
       new EncodedResource(new ClassPathResource(
-        "chinook_database/Chinook_SqlServer.sql"), UTF_8);
+        "chinook_database/Chinook_MySql.sql"), UTF_8);
     executeSqlScript(connection,
                      chinookSql,
-                     false,
+                     true,
                      true,
                      "--",
-                     "GO",
+                     ";",
                      "/*",
                      "*/");
   }
 
   @Test
-  public void sqlServer()
+  public void mySQL()
     throws SQLException
   {
     final Connection connection = dbContainer.createConnection("");
@@ -81,10 +79,10 @@ public class TestSqlServer
     final JdbcTemplate jdbcTemplate =
       new JdbcTemplate(new SingleConnectionDataSource(connection, true));
     final Integer count = jdbcTemplate.queryForObject(
-      "SELECT COUNT(*) FROM Chinook.dbo.Album",
+      "SELECT COUNT(*) FROM `Album`",
       Integer.class);
     assertThat(count, is(not(nullValue())));
-    assertThat(count, is(347));
+    assertThat(count, is(306));
   }
 
 }
