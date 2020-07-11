@@ -87,10 +87,7 @@ public class TestSQLite
 
   private DataSource dataSource()
   {
-    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    // dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-    // dataSource.setUsername("user");
-    //  dataSource.setPassword("pass");
+    final DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setUrl("jdbc:sqlite:" + sqliteDatabase);
     return dataSource;
   }
