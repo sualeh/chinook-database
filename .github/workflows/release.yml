@@ -35,31 +35,7 @@ jobs:
         mvn -v
         cat ~/.m2/settings.xml
 
-# BUILD FOR DISTRIBUTION
-    - id: build
-      name: Build and test for distribution
-      run: |
-        mvn \
-          --no-transfer-progress \
-          --batch-mode \
-          -Ddistrib \
-          clean install
-
-# CREATE GITHUB RELEASE
-    - id: create-release
-      name: Create GitHub release
-      uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        body: |
-          Chinook Database Release ${{ github.sha }}
-        draft: false
-        prerelease: false
-
-# PUBLISH TO CENTRAL REPOSITORY
+# BUILD AND PUBLISH TO CENTRAL REPOSITORY
     - id: install-secret-key
       name: Install secret key
       # Note: OSSRH_GPG_SECRET_KEY is exported using gpg --export-secret-keys -a <keyid>
@@ -81,3 +57,17 @@ jobs:
           -Dskip.signing.artifacts=false \
           -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
           clean deploy
+
+# CREATE GITHUB RELEASE
+    - id: create-release
+      name: Create GitHub release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        body: |
+          Chinook Database Release ${{ github.sha }}
+        draft: false
+        prerelease: false
