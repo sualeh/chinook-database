@@ -33,5 +33,5 @@ jobs:
         mvn \
           --no-transfer-progress \
           --batch-mode \
-          -Dheavydb
+          -Dheavydb \
           test
