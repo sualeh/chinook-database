@@ -21,26 +21,13 @@ http://www.eclipse.org/legal/epl-v10.html
 package us.fatehi.test;
 
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
-import static us.fatehi.chinook_database.DatabaseType.db2;
 import static us.fatehi.chinook_database.DatabaseType.mysql;
 import static us.fatehi.test.utility.TestUtils.test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.support.EncodedResource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -52,8 +39,7 @@ public class TestMySQL
 {
 
   @Container
-  private JdbcDatabaseContainer dbContainer =
-    new MySQLContainer();
+  private final JdbcDatabaseContainer dbContainer = new MySQLContainer();
 
   @Test
   public void mySQL()

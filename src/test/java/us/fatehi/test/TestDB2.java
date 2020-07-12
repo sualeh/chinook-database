@@ -21,16 +21,9 @@ http://www.eclipse.org/legal/epl-v10.html
 package us.fatehi.test;
 
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static us.fatehi.chinook_database.DatabaseType.db2;
-import static us.fatehi.chinook_database.ChinookDatabaseUtils.createChinookDatabase;
 import static us.fatehi.test.utility.TestUtils.test;
-import static us.fatehi.test.utility.TestUtils.verifyCount;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;

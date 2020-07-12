@@ -69,7 +69,9 @@ public class TestUtils
     System.out.printf("Creating Chinook database for %s%n", databaseType);
     createChinookDatabase(databaseType, connection);
 
-    System.out.printf("Verifying Chinook table count for %s=%d%n", table, expectedCount);
+    System.out.printf("Verifying Chinook table count for %s=%d%n",
+                      table,
+                      expectedCount);
     verifyCount(connection, table, expectedCount);
   }
 

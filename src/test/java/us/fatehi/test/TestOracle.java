@@ -21,33 +21,13 @@ http://www.eclipse.org/legal/epl-v10.html
 package us.fatehi.test;
 
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.nio.file.Files.createTempFile;
-import static java.util.stream.Collectors.joining;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
 import static us.fatehi.chinook_database.DatabaseType.oracle;
 import static us.fatehi.test.utility.TestUtils.test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.PathResource;
-import org.springframework.core.io.support.EncodedResource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.OracleContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -66,7 +46,8 @@ public class TestOracle
   public void oracle()
     throws SQLException
   {
-    System.setProperty("oracle.jdbc.timezoneAsRegion", Boolean.FALSE.toString());
+    System.setProperty("oracle.jdbc.timezoneAsRegion",
+                       Boolean.FALSE.toString());
     test(dbContainer, oracle, "Album", 347);
   }
 
