@@ -40,6 +40,7 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.support.EncodedResource;
@@ -50,7 +51,7 @@ import org.testcontainers.containers.OracleContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-// @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
+@EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
 public class TestOracle
 {
