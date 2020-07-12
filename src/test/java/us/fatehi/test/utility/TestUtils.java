@@ -25,12 +25,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static us.fatehi.chinook_database.ChinookDatabaseUtils.createChinookDatabase;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.testcontainers.containers.JdbcDatabaseContainer;
+import us.fatehi.chinook_database.DatabaseType;
 
 public class TestUtils
 {
@@ -51,6 +54,23 @@ public class TestUtils
       jdbcTemplate.queryForObject(countSql, Integer.class);
     assertThat(actualCount, is(not(nullValue())));
     assertThat(actualCount, is(expectedCount));
+  }
+
+  public static void test(final JdbcDatabaseContainer dbContainer,
+                          final DatabaseType databaseType,
+                          final String table,
+                          final int expectedCount)
+    throws SQLException
+  {
+    final Connection connection = dbContainer.createConnection("");
+    assertThat(connection, is(not(nullValue())));
+    assertThat(connection.isClosed(), is(false));
+
+    System.out.printf("Creating Chinook database for %s%n", databaseType);
+    createChinookDatabase(databaseType, connection);
+
+    System.out.printf("Verifying Chinook table count for %s=%d%n", table, expectedCount);
+    verifyCount(connection, table, expectedCount);
   }
 
   private TestUtils()

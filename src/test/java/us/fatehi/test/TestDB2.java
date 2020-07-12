@@ -27,6 +27,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static us.fatehi.chinook_database.DatabaseType.db2;
 import static us.fatehi.chinook_database.ChinookDatabaseUtils.createChinookDatabase;
+import static us.fatehi.test.utility.TestUtils.test;
 import static us.fatehi.test.utility.TestUtils.verifyCount;
 
 import java.sql.Connection;
@@ -52,13 +53,7 @@ public class TestDB2
   public void db2()
     throws SQLException
   {
-    final Connection connection = dbContainer.createConnection("");
-    assertThat(connection, is(not(nullValue())));
-    assertThat(connection.isClosed(), is(false));
-
-    createChinookDatabase(db2, connection);
-
-    verifyCount(connection, "\"Album\"", 347);
+    test(dbContainer, db2, "\"Album\"", 347);
   }
 
 }
