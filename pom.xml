@@ -86,12 +86,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-dbcp2</artifactId>
-      <version>2.7.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>1.14.3</version>
@@ -108,7 +102,6 @@
           <artifactId>azure-keyvault</artifactId>
         </exclusion>
       </exclusions>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
@@ -121,7 +114,6 @@
       <groupId>com.ibm.db2</groupId>
       <artifactId>jcc</artifactId>
       <version>11.5.0.0</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
@@ -158,7 +150,6 @@
       <groupId>com.oracle.database.jdbc.debug</groupId>
       <artifactId>ojdbc8_g</artifactId>
       <version>19.7.0.0</version>
-      <scope>test</scope>
       <exclusions>
         <exclusion>
           <groupId>com.oracle.database.jdbc</groupId>
@@ -265,6 +256,11 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>3.1.2</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -375,7 +371,6 @@
               </target>
             </configuration>
           </execution>
-
           <execution>
             <id>generate-sqlite-database</id>
             <phase>package</phase>
@@ -466,6 +461,24 @@
               </additionalOptions>
               <bottom>Copyright © 2020 {organizationName}. All rights reserved.</bottom>
               <doctitle>Chinook Database for Java ${project.version}</doctitle>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+              <overWriteIfNewer>true</overWriteIfNewer>
+              <includeScope>runtime</includeScope>
             </configuration>
           </execution>
         </executions>
