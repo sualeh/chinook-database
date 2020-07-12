@@ -22,11 +22,18 @@ package us.fatehi.chinook_database;
 
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.nio.file.Files.createTempFile;
+import static java.util.stream.Collectors.joining;
 import static us.fatehi.chinook_database.DatabaseType.oracle;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.function.Supplier;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.PathResource;
 import org.springframework.core.io.support.EncodedResource;
 
 public class OracleResource
@@ -36,8 +43,28 @@ public class OracleResource
   @Override
   public EncodedResource get()
   {
-    return new EncodedResource(new ClassPathResource(oracle.getClassPathResourcePath()),
-                               UTF_8);
+    try
+    {
+      final ClassPathResource oracleResource =
+        new ClassPathResource(oracle.getClassPathResourcePath());
+      final BufferedReader reader = new BufferedReader(new InputStreamReader(
+        oracleResource.getInputStream(),
+        UTF_8));
+      final String sqlScript = reader
+        .lines()
+        .filter(line -> !line.matches("conn chinook.*"))
+        .collect(joining("\n"));
+      final Path sqlFile = Files.write(createTempFile("chinook", ".sql"),
+                                       sqlScript.getBytes(UTF_8));
+
+      final EncodedResource chinookSql =
+        new EncodedResource(new PathResource(sqlFile), UTF_8);
+      return chinookSql;
+    }
+    catch (final Exception e)
+    {
+      throw new UnsupportedOperationException("Cannot load Oracle resource", e);
+    }
   }
 
 }
