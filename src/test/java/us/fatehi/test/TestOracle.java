@@ -63,6 +63,7 @@ public class TestOracle
   public void _createChinookDatabase()
     throws SQLException, IOException
   {
+    System.setProperty("oracle.jdbc.timezoneAsRegion", Boolean.FALSE.toString());
     final Connection connection = dbContainer.createConnection("");
 
     final BufferedReader reader =
