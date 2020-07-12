@@ -23,11 +23,17 @@ package us.fatehi.chinook_database;
 
 import static java.util.Objects.requireNonNull;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
+import static us.fatehi.chinook_database.DatabaseType.sqlite;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.function.Supplier;
 
 import org.springframework.core.io.support.EncodedResource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class ChinookDatabaseUtils
 {
@@ -70,6 +76,25 @@ public class ChinookDatabaseUtils
       default:
         throw new IllegalArgumentException();
     }
+  }
+
+  public static Path createSQLiteChinookDatabase()
+    throws IOException, SQLException
+  {
+    return createSQLiteChinookDatabase(Files.createTempFile("chinook", ".db"));
+  }
+
+  public static Path createSQLiteChinookDatabase(final Path chinookDatabasePath)
+    throws SQLException
+  {
+    requireNonNull(chinookDatabasePath, "No database path provided");
+
+    final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setUrl("jdbc:sqlite:" + chinookDatabasePath);
+
+    createChinookDatabase(sqlite, dataSource.getConnection());
+
+    return chinookDatabasePath;
   }
 
   private ChinookDatabaseUtils()
