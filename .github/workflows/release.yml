@@ -35,30 +35,14 @@ jobs:
         mvn -v
         cat ~/.m2/settings.xml
 
-# BUILD AND PUBLISH TO CENTRAL REPOSITORY
-    - id: install-secret-key
-      name: Install secret key
-      # Note: OSSRH_GPG_SECRET_KEY is exported using gpg --export-secret-keys -a <keyid>
-      # and has newlines substituted with a literal \n
-      run: |
-        cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
-        gpg --list-secret-keys --keyid-format LONG
-    - id: publish-to-central
-      name: Publish to Central Repository
-      env:
-        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+# CREATE GITHUB RELEASE
+    - id: build-test
+      name: Build all modules and run tests
       run: |
         mvn \
           --no-transfer-progress \
           --batch-mode \
-          -Dheavydb \
-          -Dmaven.javadoc.skip=false \
-          -Dskip.signing.artifacts=false \
-          -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
-          clean deploy
-
-# CREATE GITHUB RELEASE
+          install
     - id: create-release
       name: Create GitHub release
       uses: actions/create-release@latest
@@ -81,3 +65,25 @@ jobs:
         asset_path: ./target/chinook-database-1.0.0.sqlite
         asset_name: chinook-database-1.0.0-distribution.zip
         asset_content_type: application/octet-stream
+
+# BUILD AND PUBLISH TO CENTRAL REPOSITORY
+    - id: install-secret-key
+      name: Install secret key
+      # Note: OSSRH_GPG_SECRET_KEY is exported using gpg --export-secret-keys -a <keyid>
+      # and has newlines substituted with a literal \n
+      run: |
+        cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+        gpg --list-secret-keys --keyid-format LONG
+    - id: publish-to-central
+      name: Publish to Central Repository
+      env:
+        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+      run: |
+        mvn \
+          --no-transfer-progress \
+          --batch-mode \
+          -Dmaven.javadoc.skip=false \
+          -Dskip.signing.artifacts=false \
+          -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
+          clean deploy
