@@ -52,7 +52,7 @@ jobs:
         mvn \
           --no-transfer-progress \
           --batch-mode \
-          -Ddistrib \
+          -Dheavydb \
           -Dmaven.javadoc.skip=false \
           -Dskip.signing.artifacts=false \
           -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
