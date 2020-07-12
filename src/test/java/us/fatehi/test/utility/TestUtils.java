@@ -18,47 +18,44 @@ http://www.eclipse.org/legal/epl-v10.html
 
 ========================================================================
 */
-package us.fatehi.test;
+package us.fatehi.test.utility;
 
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static us.fatehi.chinook_database.DatabaseType.db2;
-import static us.fatehi.chinook_database.ChinookDatabaseUtils.createChinookDatabase;
-import static us.fatehi.test.utility.TestUtils.verifyCount;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.testcontainers.containers.Db2Container;
-import org.testcontainers.containers.JdbcDatabaseContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
-@EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
-@Testcontainers(disabledWithoutDocker = true)
-public class TestDB2
+public class TestUtils
 {
 
-  @Container
-  private final JdbcDatabaseContainer dbContainer =
-    new Db2Container().acceptLicense();
-
-  @Test
-  public void db2()
+  public static void verifyCount(final Connection connection,
+                                 final String table,
+                                 final int expectedCount)
     throws SQLException
   {
-    final Connection connection = dbContainer.createConnection("");
     assertThat(connection, is(not(nullValue())));
     assertThat(connection.isClosed(), is(false));
 
-    createChinookDatabase(db2, connection);
+    final SingleConnectionDataSource dataSource =
+      new SingleConnectionDataSource(connection, true);
+    final String countSql = "SELECT COUNT(*) FROM " + table;
+    final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+    final Integer actualCount =
+      jdbcTemplate.queryForObject(countSql, Integer.class);
+    assertThat(actualCount, is(not(nullValue())));
+    assertThat(actualCount, is(expectedCount));
+  }
 
-    verifyCount(connection, "\"Album\"", 347);
+  private TestUtils()
+  {
+    // Prevent instantiation
   }
 
 }
