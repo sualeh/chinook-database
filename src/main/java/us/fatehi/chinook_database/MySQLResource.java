@@ -22,7 +22,6 @@ package us.fatehi.chinook_database;
 
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static us.fatehi.chinook_database.DatabaseType.db2;
 import static us.fatehi.chinook_database.DatabaseType.mysql;
 
 import java.util.function.Supplier;
