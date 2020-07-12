@@ -28,6 +28,9 @@ Reference the jar file in your Maven or Gradle project, and load the SQL scripts
 
 Take a look at the [unit tests](https://github.com/schemacrawler/chinook-database/tree/master/src/test) to see how to create the Chinook database in [Testcontainers][testcontainers].
 
+### Use as SQLite Database
+
+Download the Chinook SQLite database from the [project releases page](https://github.com/schemacrawler/chinook-database/releases).
 
 
 [chinook]: https://github.com/lerocha/chinook-database "Chinook database"

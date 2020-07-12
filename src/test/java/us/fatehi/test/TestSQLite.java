@@ -21,24 +21,17 @@ http://www.eclipse.org/legal/epl-v10.html
 package us.fatehi.test;
 
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
+import static us.fatehi.chinook_database.SQLiteGenerator.createSQLiteChinookDatabase;
 
-import javax.sql.DataSource;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -48,48 +41,22 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 public class TestSQLite
 {
 
-  private Path sqliteDatabase;
-
-  @BeforeEach
-  public void _createChinookDatabase()
-    throws SQLException, IOException
-  {
-    sqliteDatabase = Files.createTempFile("chinook", ".db");
-    final Connection connection = dataSource().getConnection();
-    final EncodedResource chinookSql =
-      new EncodedResource(new ClassPathResource(
-        "chinook_database/Chinook_Sqlite.sql"), UTF_8);
-    executeSqlScript(connection,
-                     chinookSql,
-                     false,
-                     true,
-                     "--",
-                     ";",
-                     "/*",
-                     "*/");
-  }
-
   @Test
   public void sqlite()
-    throws SQLException
+    throws SQLException, IOException
   {
-    final Connection connection = dataSource().getConnection();
-    assertThat(connection, is(not(nullValue())));
-    assertThat(connection.isClosed(), is(false));
+    final Path chinookDatabasePath = createSQLiteChinookDatabase();
+
+    final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setUrl("jdbc:sqlite:" + chinookDatabasePath);
 
     final JdbcTemplate jdbcTemplate =
-      new JdbcTemplate(new SingleConnectionDataSource(connection, true));
+      new JdbcTemplate(new SingleConnectionDataSource(dataSource.getConnection(),
+                                                      true));
     final Integer count =
       jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Album", Integer.class);
     assertThat(count, is(not(nullValue())));
     assertThat(count, is(347));
-  }
-
-  private DataSource dataSource()
-  {
-    final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setUrl("jdbc:sqlite:" + sqliteDatabase);
-    return dataSource;
   }
 
 }

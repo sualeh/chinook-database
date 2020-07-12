@@ -18,7 +18,7 @@ http://www.eclipse.org/legal/epl-v10.html
 
 ========================================================================
 */
-package us.fatehi.chinook_database;
+package us.fatehi.chinook_database.resources;
 
 
 import static java.nio.charset.StandardCharsets.UTF_8;

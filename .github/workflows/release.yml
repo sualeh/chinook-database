@@ -35,6 +35,37 @@ jobs:
         mvn -v
         cat ~/.m2/settings.xml
 
+# CREATE GITHUB RELEASE
+    - id: build-test
+      name: Build all modules and run tests
+      run: |
+        mvn \
+          --no-transfer-progress \
+          --batch-mode \
+          install
+    - id: create-release
+      name: Create GitHub release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        body: |
+          Chinook Database Release ${{ github.sha }}
+        draft: false
+        prerelease: false
+    - id: upload-release-zip
+      name: Upload Chinook Database distribution zip
+      uses: actions/upload-release-asset@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ./target/chinook-database-1.0.0.sqlite
+        asset_name: chinook-database-1.0.0.sqlite
+        asset_content_type: application/octet-stream
+
 # BUILD AND PUBLISH TO CENTRAL REPOSITORY
     - id: install-secret-key
       name: Install secret key
@@ -52,22 +83,7 @@ jobs:
         mvn \
           --no-transfer-progress \
           --batch-mode \
-          -Dheavydb \
           -Dmaven.javadoc.skip=false \
           -Dskip.signing.artifacts=false \
           -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
           clean deploy
-
-# CREATE GITHUB RELEASE
-    - id: create-release
-      name: Create GitHub release
-      uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        body: |
-          Chinook Database Release ${{ github.sha }}
-        draft: false
-        prerelease: false

@@ -23,11 +23,23 @@ package us.fatehi.chinook_database;
 
 import static java.util.Objects.requireNonNull;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
+import static us.fatehi.chinook_database.DatabaseType.sqlite;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.function.Supplier;
 
 import org.springframework.core.io.support.EncodedResource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import us.fatehi.chinook_database.resources.DB2Resource;
+import us.fatehi.chinook_database.resources.MySQLResource;
+import us.fatehi.chinook_database.resources.OracleResource;
+import us.fatehi.chinook_database.resources.PostgreSQLResource;
+import us.fatehi.chinook_database.resources.SQLServerResource;
+import us.fatehi.chinook_database.resources.SQLiteResource;
 
 public class ChinookDatabaseUtils
 {
