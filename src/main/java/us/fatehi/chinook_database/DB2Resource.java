@@ -18,35 +18,26 @@ http://www.eclipse.org/legal/epl-v10.html
 
 ========================================================================
 */
-package us.fatehi.test;
+package us.fatehi.chinook_database;
 
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static us.fatehi.chinook_database.DatabaseType.db2;
-import static us.fatehi.test.utility.TestUtils.test;
 
-import java.sql.SQLException;
+import java.util.function.Supplier;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.testcontainers.containers.Db2Container;
-import org.testcontainers.containers.JdbcDatabaseContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.EncodedResource;
 
-@EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
-@Testcontainers(disabledWithoutDocker = true)
-public class TestDB2
+public class DB2Resource
+  implements Supplier<EncodedResource>
 {
 
-  @Container
-  private final JdbcDatabaseContainer dbContainer =
-    new Db2Container().acceptLicense();
-
-  @Test
-  public void db2()
-    throws SQLException
+  @Override
+  public EncodedResource get()
   {
-    test(dbContainer, db2, "\"Album\"", 347);
+    return new EncodedResource(new ClassPathResource(db2.getClassPathResourcePath()),
+                               UTF_8);
   }
 
 }

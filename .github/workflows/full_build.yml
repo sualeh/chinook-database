@@ -1,10 +1,10 @@
-name: Quick Build
+name: Full Build
 
 on: push
 
 jobs:
   build:
-    name: Quick build
+    name: Full build
     runs-on: ubuntu-latest
     steps:
 
@@ -33,4 +33,5 @@ jobs:
         mvn \
           --no-transfer-progress \
           --batch-mode \
+          -Dheavydb \
           test

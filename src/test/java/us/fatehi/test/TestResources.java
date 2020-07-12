@@ -58,13 +58,16 @@ public class TestResources
         "Chinook_SqlServer_AutoIncrementPKs.sql",
         })
       .forEach(classPathResource -> {
-        final Resource chinookSql = new ClassPathResource("chinook_database/" + classPathResource);
+        final Resource chinookSql =
+          new ClassPathResource("chinook_database/" + classPathResource);
         assertThat(classPathResource, chinookSql, is(not(nullValue())));
         assertThat(classPathResource, chinookSql.exists(), is(true));
         assertThat(classPathResource, chinookSql.isReadable(), is(true));
         try
         {
-          assertThat(classPathResource, chinookSql.contentLength(), is(greaterThan(0L)));
+          assertThat(classPathResource,
+                     chinookSql.contentLength(),
+                     is(greaterThan(0L)));
         }
         catch (final IOException e)
         {
