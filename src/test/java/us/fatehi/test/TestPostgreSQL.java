@@ -21,19 +21,13 @@ http://www.eclipse.org/legal/epl-v10.html
 package us.fatehi.test;
 
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static us.fatehi.chinook_database.DatabaseType.postgresql;
+import static us.fatehi.test.utility.TestUtils.test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SingleConnectionDataSource;
-import org.testcontainers.containers.Db2Container;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -45,24 +39,13 @@ public class TestPostgreSQL
 {
 
   @Container
-  private JdbcDatabaseContainer dbContainer = new PostgreSQLContainer<>()
-    .withInitScript("chinook_database/Chinook_PostgreSql.sql");
+  private final JdbcDatabaseContainer dbContainer = new PostgreSQLContainer<>();
 
   @Test
   public void postgreSQL()
     throws SQLException
   {
-    final Connection connection = dbContainer.createConnection("");
-    assertThat(connection, is(not(nullValue())));
-    assertThat(connection.isClosed(), is(false));
-
-    final JdbcTemplate jdbcTemplate =
-      new JdbcTemplate(new SingleConnectionDataSource(connection, true));
-    final Integer count = jdbcTemplate.queryForObject(
-      "SELECT COUNT(*) FROM \"Album\"",
-      Integer.class);
-    assertThat(count, is(not(nullValue())));
-    assertThat(count, is(347));
+    test(dbContainer, postgresql, "\"Album\"", 347);
   }
 
 }
