@@ -18,25 +18,25 @@ http://www.eclipse.org/legal/epl-v10.html
 
 ========================================================================
 */
-package us.fatehi.chinook_database;
+package us.fatehi.chinook_database.resources;
 
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static us.fatehi.chinook_database.DatabaseType.postgresql;
+import static us.fatehi.chinook_database.DatabaseType.sqlite;
 
 import java.util.function.Supplier;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.EncodedResource;
 
-public class PostgreSQLResource
+public class SQLiteResource
   implements Supplier<EncodedResource>
 {
 
   @Override
   public EncodedResource get()
   {
-    return new EncodedResource(new ClassPathResource(postgresql.getClassPathResourcePath()),
+    return new EncodedResource(new ClassPathResource(sqlite.getClassPathResourcePath()),
                                UTF_8);
   }
 

@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static us.fatehi.chinook_database.ChinookDatabaseUtils.createSQLiteChinookDatabase;
+import static us.fatehi.chinook_database.SQLiteGenerator.createSQLiteChinookDatabase;
 
 import java.io.IOException;
 import java.nio.file.Path;

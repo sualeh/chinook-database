@@ -375,6 +375,23 @@
               </target>
             </configuration>
           </execution>
+
+          <execution>
+            <id>generate-sqlite-database</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <java
+                  classname="us.fatehi.chinook_database.SQLiteGenerator"
+                  classpathref="maven.test.classpath">
+                  <arg file="${project.build.directory}/chinook-database-${project.version}.sqlite"/>
+                </java>
+              </target>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>

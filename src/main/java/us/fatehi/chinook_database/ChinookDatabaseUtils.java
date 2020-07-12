@@ -34,6 +34,12 @@ import java.util.function.Supplier;
 
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import us.fatehi.chinook_database.resources.DB2Resource;
+import us.fatehi.chinook_database.resources.MySQLResource;
+import us.fatehi.chinook_database.resources.OracleResource;
+import us.fatehi.chinook_database.resources.PostgreSQLResource;
+import us.fatehi.chinook_database.resources.SQLServerResource;
+import us.fatehi.chinook_database.resources.SQLiteResource;
 
 public class ChinookDatabaseUtils
 {
@@ -76,25 +82,6 @@ public class ChinookDatabaseUtils
       default:
         throw new IllegalArgumentException();
     }
-  }
-
-  public static Path createSQLiteChinookDatabase()
-    throws IOException, SQLException
-  {
-    return createSQLiteChinookDatabase(Files.createTempFile("chinook", ".db"));
-  }
-
-  public static Path createSQLiteChinookDatabase(final Path chinookDatabasePath)
-    throws SQLException
-  {
-    requireNonNull(chinookDatabasePath, "No database path provided");
-
-    final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setUrl("jdbc:sqlite:" + chinookDatabasePath);
-
-    createChinookDatabase(sqlite, dataSource.getConnection());
-
-    return chinookDatabasePath;
   }
 
   private ChinookDatabaseUtils()

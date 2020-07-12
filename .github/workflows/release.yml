@@ -71,3 +71,13 @@ jobs:
           Chinook Database Release ${{ github.sha }}
         draft: false
         prerelease: false
+    - id: upload-release-zip
+      name: Upload Chinook Database distribution zip
+      uses: actions/upload-release-asset@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ./target/chinook-database-1.0.0.sqlite
+        asset_name: chinook-database-1.0.0-distribution.zip
+        asset_content_type: application/octet-stream
