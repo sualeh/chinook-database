@@ -25,21 +25,33 @@ public enum DatabaseType
 {
   oracle("chinook_database/Chinook_Oracle.sql"),
   db2("chinook_database/Chinook_Db2.sql"),
-  sqlserver("chinook_database/Chinook_SqlServer.sql"),
+  sqlserver("chinook_database/Chinook_SqlServer.sql", "GO"),
   sqlite("chinook_database/Chinook_Sqlite.sql"),
   mysql("chinook_database/Chinook_MySql.sql"),
   postgresql("chinook_database/Chinook_PostgreSql.sql");
+
+  private final String classPathResourcePath;
+  private final String scriptSeparator;
+
+  DatabaseType(final String classPathResourcePath, final String scriptSeparator)
+  {
+    this.classPathResourcePath = classPathResourcePath;
+    this.scriptSeparator = scriptSeparator;
+  }
+
+  DatabaseType(final String classPathResourcePath)
+  {
+    this(classPathResourcePath, ";");
+  }
 
   public String getClassPathResourcePath()
   {
     return classPathResourcePath;
   }
 
-  DatabaseType(final String classPathResourcePath)
+  public String getScriptSeparator()
   {
-    this.classPathResourcePath = classPathResourcePath;
+    return scriptSeparator;
   }
-
-  private final String classPathResourcePath;
 
 }

@@ -25,7 +25,6 @@ import static java.util.Objects.requireNonNull;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.function.Supplier;
 
 import org.springframework.core.io.support.EncodedResource;
@@ -34,14 +33,20 @@ public class ChinookDatabaseUtils
 {
 
   public static void createChinookDatabase(final DatabaseType databaseType,
-                                    final Connection connection)
-    throws SQLException
+                                           final Connection connection)
   {
     requireNonNull(databaseType, "No database type provided");
     requireNonNull(connection, "No connection provided");
 
     final EncodedResource chinookSql = getResource(databaseType).get();
-    executeSqlScript(connection, chinookSql, true, true, "--", ";", "/*", "*/");
+    executeSqlScript(connection,
+                     chinookSql,
+                     true,
+                     true,
+                     "--",
+                     databaseType.getScriptSeparator(),
+                     "/*",
+                     "*/");
   }
 
   public static Supplier<EncodedResource> getResource(final DatabaseType databaseType)

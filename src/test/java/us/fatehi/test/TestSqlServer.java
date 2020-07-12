@@ -27,6 +27,9 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
+import static us.fatehi.chinook_database.DatabaseType.db2;
+import static us.fatehi.chinook_database.DatabaseType.sqlserver;
+import static us.fatehi.test.utility.TestUtils.test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -52,39 +55,11 @@ public class TestSqlServer
   private final JdbcDatabaseContainer dbContainer =
     new MSSQLServerContainer<>();
 
-  @BeforeEach
-  public void _createChinookDatabase()
-    throws SQLException
-  {
-    final Connection connection = dbContainer.createConnection("");
-    final EncodedResource chinookSql =
-      new EncodedResource(new ClassPathResource(
-        "chinook_database/Chinook_SqlServer.sql"), UTF_8);
-    executeSqlScript(connection,
-                     chinookSql,
-                     false,
-                     true,
-                     "--",
-                     "GO",
-                     "/*",
-                     "*/");
-  }
-
   @Test
   public void sqlServer()
     throws SQLException
   {
-    final Connection connection = dbContainer.createConnection("");
-    assertThat(connection, is(not(nullValue())));
-    assertThat(connection.isClosed(), is(false));
-
-    final JdbcTemplate jdbcTemplate =
-      new JdbcTemplate(new SingleConnectionDataSource(connection, true));
-    final Integer count = jdbcTemplate.queryForObject(
-      "SELECT COUNT(*) FROM Chinook.dbo.Album",
-      Integer.class);
-    assertThat(count, is(not(nullValue())));
-    assertThat(count, is(347));
+    test(dbContainer, sqlserver, "Chinook.dbo.Album", 347);
   }
 
 }
