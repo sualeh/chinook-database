@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  chinook:
+    image: schemacrawler/chinook
+    stdin_open: true
+    tty: true
+    volumes:
+      - type: bind
+        source: ./
+        target: /home/chinook/output
