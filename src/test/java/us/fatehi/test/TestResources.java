@@ -48,9 +48,7 @@ public class TestResources
         "Chinook_Db2.sql",
         "Chinook_MySql.sql",
         "Chinook_MySql_AutoIncrementPKs.sql",
-        /*
         "Chinook_Oracle.sql",
-         */
         "Chinook_PostgreSql.sql",
         "Chinook_Sqlite.sql",
         "Chinook_Sqlite_AutoIncrementPKs.sql",
@@ -59,7 +57,8 @@ public class TestResources
         })
       .forEach(classPathResource -> {
         final Resource chinookSql =
-          new ClassPathResource("chinook_database/" + classPathResource);
+          new ClassPathResource("chinook-database/" + classPathResource);
+        System.out.println(chinookSql);
         assertThat(classPathResource, chinookSql, is(not(nullValue())));
         assertThat(classPathResource, chinookSql.exists(), is(true));
         assertThat(classPathResource, chinookSql.isReadable(), is(true));

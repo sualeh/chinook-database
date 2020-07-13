@@ -18,7 +18,7 @@ Supported database servers
 
 ### Use as SQL Scripts
 
-Download the jar from [The Central Repository][download], and unzip them using a standard unzip program. The scripts will be in a directory called `chinook_database`.
+Download the jar from [The Central Repository][download], and unzip using a standard unzip program. The scripts will be in a directory called `chinook-database`.
 
 ### Use as Java Resources
 

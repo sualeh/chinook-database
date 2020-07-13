@@ -23,12 +23,12 @@ package us.fatehi.chinook_database;
 
 public enum DatabaseType
 {
-  oracle("chinook_database/Chinook_Oracle.sql"),
-  db2("chinook_database/Chinook_Db2.sql"),
-  sqlserver("chinook_database/Chinook_SqlServer.sql", "GO"),
-  sqlite("chinook_database/Chinook_Sqlite.sql"),
-  mysql("chinook_database/Chinook_MySql.sql"),
-  postgresql("chinook_database/Chinook_PostgreSql.sql");
+  oracle("chinook-database/Chinook_Oracle.sql"),
+  db2("chinook-database/Chinook_Db2.sql"),
+  sqlserver("chinook-database/Chinook_SqlServer.sql", "GO"),
+  sqlite("chinook-database/Chinook_Sqlite.sql"),
+  mysql("chinook-database/Chinook_MySql.sql"),
+  postgresql("chinook-database/Chinook_PostgreSql.sql");
 
   private final String classPathResourcePath;
   private final String scriptSeparator;
