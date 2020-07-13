@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   chinook-database:
-    image: schemacrawler/chinook
+    image: schemacrawler/chinook-database
     stdin_open: true
     tty: true
     volumes:
