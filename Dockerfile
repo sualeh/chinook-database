@@ -4,17 +4,17 @@
 # Copyright (c) 2020, Sualeh Fatehi <sualeh@hotmail.com>.
 # All rights reserved.
 # ------------------------------------------------------------------------
-# 
+#
 # This software is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# 
+#
 # This software and the accompanying materials are made available under
 # the terms of the Eclipse Public License v1.0.
-# 
+#
 # The Eclipse Public License is available at:
 # http://www.eclipse.org/legal/epl-v10.html
-# 
+#
 # ========================================================================
 
 
@@ -33,17 +33,18 @@ LABEL "maintainer"="Sualeh Fatehi <sualeh@hotmail.com>"
 RUN \
   apk add --update --no-cache \
   bash \
-  bash-completion
+  bash-completion \
+  sqlite
 
 # Copy Chinook Database distribution from the build directory
 COPY \
     ./target/chinook-database-${CHINOOK_VERSION}.jar /opt/chinook-database/lib/
 COPY \
-    ./target/dependencies/*.jar /opt/chinook-database/lib/		
+    ./target/dependencies/*.jar /opt/chinook-database/lib/
 COPY \
-    ./target/*.sqlite /opt/chinook-database/		
+    ./target/*.sqlite /opt/chinook-database/
 COPY \
-    ./src/docker/chinook-database-creator.sh /opt/chinook-database		
+    ./src/docker/chinook-database-creator.sh /opt/chinook-database
 # Ensure that the Chinook Database script is executable
 RUN \
     chmod +rx /opt/chinook-database/chinook-database-creator.sh
