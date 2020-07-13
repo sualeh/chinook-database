@@ -53,7 +53,7 @@ public class SQLiteGenerator
   public static Path createSQLiteChinookDatabase()
     throws IOException, SQLException
   {
-    return createSQLiteChinookDatabase(Files.createTempFile("chinook", ".db"));
+    return createSQLiteChinookDatabase(Files.createTempFile("chinook-database", ".db"));
   }
 
   public static Path createSQLiteChinookDatabase(final Path chinookDatabasePath)

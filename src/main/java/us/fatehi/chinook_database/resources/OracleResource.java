@@ -57,9 +57,7 @@ public class OracleResource
       final Path sqlFile = Files.write(createTempFile("chinook", ".sql"),
                                        sqlScript.getBytes(UTF_8));
 
-      final EncodedResource chinookSql =
-        new EncodedResource(new PathResource(sqlFile), UTF_8);
-      return chinookSql;
+      return new EncodedResource(new PathResource(sqlFile), UTF_8);
     }
     catch (final Exception e)
     {

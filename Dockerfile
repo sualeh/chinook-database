@@ -20,12 +20,12 @@
 
 FROM openjdk:8-jdk-alpine
 
-ARG CHINOOK_VERSION=1.0.0
+ARG CHINOOK_DATAVASE_VERSION=1.0.0
 
 LABEL \
-  "us.fatehi.chinook.product-version"="Chinook Database ${CHINOOK_VERSION}" \
-  "us.fatehi.chinook.website"="http://www.schemacrawler.com" \
-  "us.fatehi.chinook.docker-hub"="https://hub.docker.com/r/schemacrawler/chinook"
+  "us.fatehi.chinook-database.product-version"="Chinook Database ${CHINOOK_DATAVASE_VERSION}" \
+  "us.fatehi.chinook-database.website"="http://www.schemacrawler.com" \
+  "us.fatehi.chinook-database.docker-hub"="https://hub.docker.com/r/schemacrawler/chinook"
 
 LABEL "maintainer"="Sualeh Fatehi <sualeh@hotmail.com>"
 
@@ -38,7 +38,7 @@ RUN \
 
 # Copy Chinook Database distribution from the build directory
 COPY \
-    ./target/chinook-database-${CHINOOK_VERSION}.jar /opt/chinook-database/lib/
+    ./target/chinook-database-${CHINOOK_DATAVASE_VERSION}.jar /opt/chinook-database/lib/
 COPY \
     ./target/dependencies/*.jar /opt/chinook-database/lib/
 COPY \
@@ -57,5 +57,5 @@ WORKDIR /home/chinook
 
 # Create aliases for Chinook Database
 RUN \
-    echo 'alias chinook-creator="/opt/chinook-database/chinook-database-creator.sh"' \
+    echo 'alias chinook-database-creator="/opt/chinook-database/chinook-database-creator.sh"' \
     >> /home/chinook/.bashrc

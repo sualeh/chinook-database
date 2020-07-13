@@ -50,9 +50,9 @@ public class ChinookDatabaseUtils
     requireNonNull(databaseType, "No database type provided");
     requireNonNull(connection, "No connection provided");
 
-    final EncodedResource chinookSql = getResource(databaseType).get();
+    final EncodedResource chinookDatabaseSql = getResource(databaseType).get();
     executeSqlScript(connection,
-                     chinookSql,
+                     chinookDatabaseSql,
                      true,
                      true,
                      "--",
