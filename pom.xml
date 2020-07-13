@@ -312,7 +312,7 @@
                   <mapper type="flatten"/>
                 </unzip>
                 <copy
-                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  todir="${project.build.directory}/generated-resources/chinook-database"
                   overwrite="true"
                   encoding="Cp1252"
                   outputencoding="UTF-8">
@@ -321,7 +321,7 @@
                     includes="*Db2.sql" />
                 </copy>
                 <copy
-                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  todir="${project.build.directory}/generated-resources/chinook-database"
                   overwrite="true"
                   encoding="UTF-16"
                   outputencoding="UTF-8">
@@ -330,7 +330,7 @@
                     includes="*SqlServer*.sql" />
                 </copy>
                 <copy
-                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  todir="${project.build.directory}/generated-resources/chinook-database"
                   overwrite="true"
                   encoding="ASCII"
                   outputencoding="UTF-8">
@@ -339,7 +339,7 @@
                     includes="*PostgreSql*.sql" />
                 </copy>
                 <copy
-                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  todir="${project.build.directory}/generated-resources/chinook-database"
                   overwrite="true"
                   encoding="UTF-8"
                   outputencoding="UTF-8">
@@ -351,7 +351,7 @@
                     includes="*MySql*.sql" />
                 </copy>
                 <copy
-                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  todir="${project.build.directory}/generated-resources/chinook-database"
                   overwrite="true"
                   encoding="UTF-8"
                   outputencoding="UTF-8">
@@ -363,7 +363,7 @@
                     includes="*Oracle*.sql" />
                 </copy>
                 <copy
-                  todir="${project.build.directory}/generated-resources/chinook_database"
+                  todir="${project.build.directory}/generated-resources/chinook-database"
                   overwrite="true"
                   encoding="UTF-8"
                   outputencoding="UTF-8">
