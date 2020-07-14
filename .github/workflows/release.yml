@@ -35,14 +35,16 @@ jobs:
         mvn -v
         cat ~/.m2/settings.xml
 
-# CREATE GITHUB RELEASE
-    - id: build-test
-      name: Build all modules and run tests
+# BUILD FOR DISTRIBUTION
+    - id: build
+      name: Build and test for distribution
       run: |
         mvn \
           --no-transfer-progress \
           --batch-mode \
-          install
+          clean install
+
+# CREATE GITHUB RELEASE AND ADD ASSETS
     - id: create-release
       name: Create GitHub release
       uses: actions/create-release@latest
@@ -56,7 +58,7 @@ jobs:
         draft: false
         prerelease: false
     - id: upload-release-zip
-      name: Upload Chinook Database distribution zip
+      name: Upload Chinook Database for SQLite
       uses: actions/upload-release-asset@latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,7 +68,17 @@ jobs:
         asset_name: chinook-database-1.0.0.sqlite
         asset_content_type: application/octet-stream
 
-# BUILD AND PUBLISH TO CENTRAL REPOSITORY
+# CREATE AND PUBLISH DOCKER IMAGE
+    - id: create-docker-image
+      name: Create and publish Docker image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      working-directory: .
+      run: |
+        ./docker-build.sh
+
+# PUBLISH TO CENTRAL REPOSITORY
     - id: install-secret-key
       name: Install secret key
       # Note: OSSRH_GPG_SECRET_KEY is exported using gpg --export-secret-keys -a <keyid>
