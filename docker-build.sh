@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-CHINOOK_DATABASE_VERSION=1.0.0
+CHINOOK_DATABASE_VERSION=2.0.1
 
 echo "** Creating Chinook Database v$CHINOOK_DATABASE_VERSION Docker container"
 

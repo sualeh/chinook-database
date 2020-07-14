@@ -64,8 +64,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create-release.outputs.upload_url }}
-        asset_path: ./target/chinook-database-1.0.0.sqlite
-        asset_name: chinook-database-1.0.0.sqlite
+        asset_path: ./target/chinook-database-2.0.1.sqlite
+        asset_name: chinook-database-2.0.1.sqlite
         asset_content_type: application/octet-stream
 
 # CREATE AND PUBLISH DOCKER IMAGE
