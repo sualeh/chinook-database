@@ -1,10 +1,10 @@
 # Chinook Database for Java
 
-> [Chinook database][chinook] packaged as a jar, for use in Java and with Testcontainers
+> [Chinook database][chinook-database] packaged as a jar, for use in Java and with Testcontainers
 
 ## About
 
-Chinook Database for Java takes the [Chinook database][chinook] SQL scripts created by [Luis Rocha](https://github.com/lerocha), and packages them as UTF-8 resources in a Java jar file. This jar can be [downloaded from The Central Repository][download] for use in Java programs, and for testing using [Testcontainers][testcontainers].
+Chinook Database for Java takes the [Chinook database][chinook-database] SQL scripts created by [Luis Rocha](https://github.com/lerocha), and packages them as UTF-8 resources in a Java jar file. This jar can be [downloaded from The Central Repository][download] for use in Java programs, and for testing using [Testcontainers][testcontainers].
 
 Supported database servers
 - Microsoft SQL Server
@@ -32,7 +32,15 @@ Take a look at the [unit tests](https://github.com/schemacrawler/chinook-databas
 
 Download the Chinook SQLite database from the [project releases page](https://github.com/schemacrawler/chinook-database/releases).
 
+### Use as Docker Container
 
-[chinook]: https://github.com/lerocha/chinook-database "Chinook database"
+The Chinook database Docker image is [published on Docker Hub](https://hub.docker.com/r/schemacrawler/chinook-database). You can use this with Docker Compose to create the Chinook database in any container that is running a database. Connect to your Docker container using a command like:
+`docker exec -it schemacrawler/chinook-database /bin/bash`
+and then run `chinook-database-creator` with a command like:
+`chinook-database-creator --url "jdbc:postgresql://postgresql:5432/schemacrawler?ApplicationName=ChinookDatabase;loggerLevel=DEBUG" --user schemacrawler --password schemacrawler --server postgresql`.
+
+
+
+[chinook-database]: https://github.com/lerocha/chinook-database "Chinook database"
 [download]: https://search.maven.org/search?q=us.fatehi%20chinook "The Central Repository"
 [testcontainers]: https://www.testcontainers.org/ "Testcontainers"
