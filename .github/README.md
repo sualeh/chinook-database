@@ -40,7 +40,9 @@ docker exec -it schemacrawler/chinook-database /bin/bash
 ```
 and then run `chinook-database-creator` with a command like:
 ```sh
-chinook-database-creator --url "jdbc:postgresql://postgresql:5432/schemacrawler?ApplicationName=ChinookDatabase;loggerLevel=DEBUG" --user schemacrawler --password schemacrawler --server postgresql
+chinook-database-creator \
+--url "jdbc:postgresql://postgresql:5432/schemacrawler" \
+--user schemacrawler --password schemacrawler --server postgresql
 ```
 
 
