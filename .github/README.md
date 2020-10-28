@@ -45,6 +45,9 @@ chinook-database-creator \
 --user schemacrawler --password schemacrawler --server postgresql
 ```
 
+-----
+
+<img src="chinook_schema_diagram.png" width="100%"/>
 
 
 [chinook-database]: https://github.com/lerocha/chinook-database "Chinook database"
