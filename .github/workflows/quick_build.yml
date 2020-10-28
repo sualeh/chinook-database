@@ -33,4 +33,26 @@ jobs:
         mvn \
           --no-transfer-progress \
           --batch-mode \
-          test
+          package
+
+# GENERATE SchemaCrawler DIAGRAM
+      - id: schemacrawler
+        name: Run SchemaCrawler Action with specified command-line
+        uses: schemacrawler/SchemaCrawler-Action@v16.11.3
+        with:
+          entrypoint: /schemacrawler.sh
+          args: --server=sqlite --database=target/chinook-database-2.0.1.sqlite --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
+
+      - id: check-success
+        name: Check if the SchemaCrawler run succeeded
+        run: |
+          [ ${{ steps.schemacrawler.outputs.exit_status }} -eq 0 ] && echo "SchemaCrawler run succeeded" || exit ${{ steps.schemacrawler.outputs.exit_status }}
+
+      - id: checkin
+        name: Checkin schema diagram created from the SchemaCrawler Action
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add chinook_schema_diagram.png
+          git commit -m "SchemaCrawler schema diagram generated from GitHub action"
+          git push
