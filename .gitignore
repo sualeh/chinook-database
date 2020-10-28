@@ -19,6 +19,7 @@ bin/
 .clover
 .svn
 *.png
+!chinook_schema_diagram.png
 
 target/
 workspace/
