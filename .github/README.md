@@ -47,7 +47,7 @@ chinook-database-creator \
 
 -----
 
-<img src="chinook_schema_diagram.png" width="100%"/>
+<img src="../chinook_schema_diagram.png" width="100%"/>
 
 
 [chinook-database]: https://github.com/lerocha/chinook-database "Chinook database"
