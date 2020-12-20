@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.chinook_database.resources;
 
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.createTempFile;
 import static java.util.stream.Collectors.joining;
@@ -36,33 +35,23 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.support.EncodedResource;
 
-public class OracleResource
-  implements Supplier<EncodedResource>
-{
+public class OracleResource implements Supplier<EncodedResource> {
 
   @Override
-  public EncodedResource get()
-  {
-    try
-    {
+  public EncodedResource get() {
+    try {
       final ClassPathResource oracleResource =
-        new ClassPathResource(oracle.getClassPathResourcePath());
-      final BufferedReader reader = new BufferedReader(new InputStreamReader(
-        oracleResource.getInputStream(),
-        UTF_8));
-      final String sqlScript = reader
-        .lines()
-        .filter(line -> !line.matches("conn chinook.*"))
-        .collect(joining("\n"));
-      final Path sqlFile = Files.write(createTempFile("chinook", ".sql"),
-                                       sqlScript.getBytes(UTF_8));
+          new ClassPathResource(oracle.getClassPathResourcePath());
+      final BufferedReader reader =
+          new BufferedReader(new InputStreamReader(oracleResource.getInputStream(), UTF_8));
+      final String sqlScript =
+          reader.lines().filter(line -> !line.matches("conn chinook.*")).collect(joining("\n"));
+      final Path sqlFile =
+          Files.write(createTempFile("chinook", ".sql"), sqlScript.getBytes(UTF_8));
 
       return new EncodedResource(new PathResource(sqlFile), UTF_8);
-    }
-    catch (final Exception e)
-    {
+    } catch (final Exception e) {
       throw new UnsupportedOperationException("Cannot load Oracle resource", e);
     }
   }
-
 }

@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.test;
 
-
 import static us.fatehi.chinook_database.DatabaseType.oracle;
 import static us.fatehi.test.utility.TestUtils.test;
 
@@ -35,20 +34,15 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
-public class TestOracle
-{
+public class TestOracle {
 
   @Container
   private final JdbcDatabaseContainer dbContainer =
-    new OracleContainer("wnameless/oracle-xe-11g-r2");
+      new OracleContainer("wnameless/oracle-xe-11g-r2");
 
   @Test
-  public void oracle()
-    throws SQLException
-  {
-    System.setProperty("oracle.jdbc.timezoneAsRegion",
-                       Boolean.FALSE.toString());
+  public void oracle() throws SQLException {
+    System.setProperty("oracle.jdbc.timezoneAsRegion", Boolean.FALSE.toString());
     test(dbContainer, oracle, "Album", 347);
   }
-
 }

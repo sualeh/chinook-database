@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.test;
 
-
 import static us.fatehi.chinook_database.DatabaseType.sqlserver;
 import static us.fatehi.test.utility.TestUtils.test;
 
@@ -35,18 +34,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
-public class TestSqlServer
-{
+public class TestSqlServer {
 
-  @Container
-  private final JdbcDatabaseContainer dbContainer =
-    new MSSQLServerContainer<>();
+  @Container private final JdbcDatabaseContainer dbContainer = new MSSQLServerContainer<>();
 
   @Test
-  public void sqlServer()
-    throws SQLException
-  {
+  public void sqlServer() throws SQLException {
     test(dbContainer, sqlserver, "Chinook.dbo.Album", 347);
   }
-
 }

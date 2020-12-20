@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.test;
 
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -40,25 +39,19 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
-public class TestSQLite
-{
+public class TestSQLite {
 
   @Test
-  public void sqlite()
-    throws SQLException, IOException
-  {
+  public void sqlite() throws SQLException, IOException {
     final Path chinookDatabasePath = createSQLiteChinookDatabase();
 
     final DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setUrl("jdbc:sqlite:" + chinookDatabasePath);
 
     final JdbcTemplate jdbcTemplate =
-      new JdbcTemplate(new SingleConnectionDataSource(dataSource.getConnection(),
-                                                      true));
-    final Integer count =
-      jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Album", Integer.class);
+        new JdbcTemplate(new SingleConnectionDataSource(dataSource.getConnection(), true));
+    final Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Album", Integer.class);
     assertThat(count, is(not(nullValue())));
     assertThat(count, is(347));
   }
-
 }

@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.test;
 
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,44 +34,36 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-public class TestResources
-{
+public class TestResources {
 
   @Test
-  public void checkResources()
-    throws IOException
-  {
+  public void checkResources() throws IOException {
 
-    Arrays
-      .stream(new String[] {
-        "Chinook_Db2.sql",
-        "Chinook_MySql.sql",
-        "Chinook_MySql_AutoIncrementPKs.sql",
-        "Chinook_Oracle.sql",
-        "Chinook_PostgreSql.sql",
-        "Chinook_Sqlite.sql",
-        "Chinook_Sqlite_AutoIncrementPKs.sql",
-        "Chinook_SqlServer.sql",
-        "Chinook_SqlServer_AutoIncrementPKs.sql",
-        })
-      .forEach(classPathResource -> {
-        final Resource chinookSql =
-          new ClassPathResource("chinook-database/" + classPathResource);
-        System.out.println(chinookSql);
-        assertThat(classPathResource, chinookSql, is(not(nullValue())));
-        assertThat(classPathResource, chinookSql.exists(), is(true));
-        assertThat(classPathResource, chinookSql.isReadable(), is(true));
-        try
-        {
-          assertThat(classPathResource,
-                     chinookSql.contentLength(),
-                     is(greaterThan(0L)));
-        }
-        catch (final IOException e)
-        {
-          fail(e);
-        }
-      });
+    Arrays.stream(
+            new String[] {
+              "Chinook_Db2.sql",
+              "Chinook_MySql.sql",
+              "Chinook_MySql_AutoIncrementPKs.sql",
+              "Chinook_Oracle.sql",
+              "Chinook_PostgreSql.sql",
+              "Chinook_Sqlite.sql",
+              "Chinook_Sqlite_AutoIncrementPKs.sql",
+              "Chinook_SqlServer.sql",
+              "Chinook_SqlServer_AutoIncrementPKs.sql",
+            })
+        .forEach(
+            classPathResource -> {
+              final Resource chinookSql =
+                  new ClassPathResource("chinook-database/" + classPathResource);
+              System.out.println(chinookSql);
+              assertThat(classPathResource, chinookSql, is(not(nullValue())));
+              assertThat(classPathResource, chinookSql.exists(), is(true));
+              assertThat(classPathResource, chinookSql.isReadable(), is(true));
+              try {
+                assertThat(classPathResource, chinookSql.contentLength(), is(greaterThan(0L)));
+              } catch (final IOException e) {
+                fail(e);
+              }
+            });
   }
-
 }

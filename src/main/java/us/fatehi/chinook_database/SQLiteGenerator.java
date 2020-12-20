@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.chinook_database;
 
-
 import static java.util.Objects.requireNonNull;
 import static us.fatehi.chinook_database.DatabaseType.sqlite;
 
@@ -32,33 +31,14 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-public class SQLiteGenerator
-{
+public class SQLiteGenerator {
 
-  public static void main(String[] args)
-    throws Exception
-  {
-    final Path sqLiteChinookDatabasePath;
-    if (args==null || args.length ==0) {
-      sqLiteChinookDatabasePath = createSQLiteChinookDatabase();
-    } else {
-      final Path path = Paths.get(args[0]);
-      sqLiteChinookDatabasePath = createSQLiteChinookDatabase(path);
-    }
-
-    Version.main(args);
-    System.out.println(sqLiteChinookDatabasePath);
-  }
-
-  public static Path createSQLiteChinookDatabase()
-    throws IOException, SQLException
-  {
+  public static Path createSQLiteChinookDatabase() throws IOException, SQLException {
     return createSQLiteChinookDatabase(Files.createTempFile("chinook-database", ".db"));
   }
 
   public static Path createSQLiteChinookDatabase(final Path chinookDatabasePath)
-    throws SQLException
-  {
+      throws SQLException {
     requireNonNull(chinookDatabasePath, "No database path provided");
 
     final DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -67,5 +47,18 @@ public class SQLiteGenerator
     ChinookDatabaseUtils.createChinookDatabase(sqlite, dataSource.getConnection());
 
     return chinookDatabasePath;
+  }
+
+  public static void main(String[] args) throws Exception {
+    final Path sqLiteChinookDatabasePath;
+    if (args == null || args.length == 0) {
+      sqLiteChinookDatabasePath = createSQLiteChinookDatabase();
+    } else {
+      final Path path = Paths.get(args[0]);
+      sqLiteChinookDatabasePath = createSQLiteChinookDatabase(path);
+    }
+
+    Version.main(args);
+    System.out.println(sqLiteChinookDatabasePath);
   }
 }

@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.test;
 
-
 import static us.fatehi.chinook_database.DatabaseType.mysql;
 import static us.fatehi.test.utility.TestUtils.test;
 
@@ -35,17 +34,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
-public class TestMySQL
-{
+public class TestMySQL {
 
-  @Container
-  private final JdbcDatabaseContainer dbContainer = new MySQLContainer();
+  @Container private final JdbcDatabaseContainer dbContainer = new MySQLContainer();
 
   @Test
-  public void mySQL()
-    throws SQLException
-  {
+  public void mySQL() throws SQLException {
     test(dbContainer, mysql, "`Album`", 306);
   }
-
 }

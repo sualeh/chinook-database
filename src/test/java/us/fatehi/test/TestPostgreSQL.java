@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.test;
 
-
 import static us.fatehi.chinook_database.DatabaseType.postgresql;
 import static us.fatehi.test.utility.TestUtils.test;
 
@@ -35,17 +34,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
-public class TestPostgreSQL
-{
+public class TestPostgreSQL {
 
-  @Container
-  private final JdbcDatabaseContainer dbContainer = new PostgreSQLContainer<>();
+  @Container private final JdbcDatabaseContainer dbContainer = new PostgreSQLContainer<>();
 
   @Test
-  public void postgreSQL()
-    throws SQLException
-  {
+  public void postgreSQL() throws SQLException {
     test(dbContainer, postgresql, "\"Album\"", 347);
   }
-
 }

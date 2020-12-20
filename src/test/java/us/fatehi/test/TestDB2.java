@@ -20,7 +20,6 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.test;
 
-
 import static us.fatehi.chinook_database.DatabaseType.db2;
 import static us.fatehi.test.utility.TestUtils.test;
 
@@ -35,18 +34,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
-public class TestDB2
-{
+public class TestDB2 {
 
-  @Container
-  private final JdbcDatabaseContainer dbContainer =
-    new Db2Container().acceptLicense();
+  @Container private final JdbcDatabaseContainer dbContainer = new Db2Container().acceptLicense();
 
   @Test
-  public void db2()
-    throws SQLException
-  {
+  public void db2() throws SQLException {
     test(dbContainer, db2, "\"Album\"", 347);
   }
-
 }

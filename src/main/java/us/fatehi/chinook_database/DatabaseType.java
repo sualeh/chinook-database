@@ -20,9 +20,7 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.chinook_database;
 
-
-public enum DatabaseType
-{
+public enum DatabaseType {
   oracle("chinook-database/Chinook_Oracle.sql"),
   db2("chinook-database/Chinook_Db2.sql"),
   sqlserver("chinook-database/Chinook_SqlServer.sql", "GO"),
@@ -33,25 +31,20 @@ public enum DatabaseType
   private final String classPathResourcePath;
   private final String scriptSeparator;
 
-  DatabaseType(final String classPathResourcePath, final String scriptSeparator)
-  {
+  DatabaseType(final String classPathResourcePath) {
+    this(classPathResourcePath, ";");
+  }
+
+  DatabaseType(final String classPathResourcePath, final String scriptSeparator) {
     this.classPathResourcePath = classPathResourcePath;
     this.scriptSeparator = scriptSeparator;
   }
 
-  DatabaseType(final String classPathResourcePath)
-  {
-    this(classPathResourcePath, ";");
-  }
-
-  public String getClassPathResourcePath()
-  {
+  public String getClassPathResourcePath() {
     return classPathResourcePath;
   }
 
-  public String getScriptSeparator()
-  {
+  public String getScriptSeparator() {
     return scriptSeparator;
   }
-
 }
