@@ -38,7 +38,7 @@ jobs:
 # GENERATE SchemaCrawler DIAGRAM
     - id: schemacrawler
       name: Run SchemaCrawler Action with specified command-line
-      uses: schemacrawler/SchemaCrawler-Action@v16.14.3
+      uses: schemacrawler/SchemaCrawler-Action@v16.14.4
       with:
         entrypoint: /schemacrawler.sh
         args: --server=sqlite --database=target/chinook-database-2.0.1.sqlite --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
