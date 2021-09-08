@@ -38,7 +38,8 @@ public class TestOracle {
 
   @Container
   private final JdbcDatabaseContainer dbContainer =
-      new OracleContainer("wnameless/oracle-xe-11g-r2");
+      new OracleContainer("wnameless/oracle-xe-11g-r2").withStartupTimeoutSeconds(360)
+          .withConnectTimeoutSeconds(180);
 
   @Test
   public void oracle() throws SQLException {
