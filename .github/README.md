@@ -36,7 +36,7 @@ Download the Chinook SQLite database from the [project releases page](https://gi
 
 The Chinook database Docker image is [published on Docker Hub](https://hub.docker.com/r/schemacrawler/chinook-database). You can use this with Docker Compose to create the Chinook database in any container that is running a database. Connect to your Docker container using a command like:
 ```sh
-docker exec -it schemacrawler/chinook-database /bin/bash
+docker run -it schemacrawler/chinook-database /bin/bash
 ```
 and then run `chinook-database-creator` with a command like:
 ```sh
