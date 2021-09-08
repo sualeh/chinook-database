@@ -49,6 +49,8 @@ jobs:
       name: Build all modules and run tests
       run: |
         mvn \
+          -X \
+          -DtrimStackTrace=false \
           --no-transfer-progress \
           --batch-mode \
           -Dheavydb \
