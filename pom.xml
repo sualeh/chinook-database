@@ -461,7 +461,7 @@
               <additionalOptions>
                 <additionalOption>-Xdoclint:none</additionalOption>
               </additionalOptions>
-              <bottom>Copyright © 2020 {organizationName}. All rights reserved.</bottom>
+              <bottom>Copyright © 2020-21 {organizationName}. All rights reserved.</bottom>
               <doctitle>Chinook Database for Java ${project.version}</doctitle>
             </configuration>
           </execution>
@@ -498,7 +498,7 @@
               <Implementation-Version>${project.version}</Implementation-Version>
               <Implementation-Vendor>Sualeh Fatehi, sualeh@hotmail.com</Implementation-Vendor>
               <Main-Class>us.fatehi.chinook_database.Version</Main-Class>
-              <Copyright>Copyright © 2020 {organizationName}. All rights reserved.</Copyright>
+              <Copyright>Copyright © 2020-21 {organizationName}. All rights reserved.</Copyright>
             </manifestEntries>
           </archive>
         </configuration>

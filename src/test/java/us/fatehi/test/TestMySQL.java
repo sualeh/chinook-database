@@ -2,7 +2,7 @@
 ========================================================================
 Chinook Database
 http://www.schemacrawler.com
-Copyright (c) 2020, Sualeh Fatehi <sualeh@hotmail.com>.
+Copyright (c) 2020-21, Sualeh Fatehi <sualeh@hotmail.com>.
 All rights reserved.
 ------------------------------------------------------------------------
 
