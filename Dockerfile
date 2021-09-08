@@ -20,7 +20,7 @@
 
 FROM openjdk:8-jdk-alpine
 
-ARG CHINOOK_DATAVASE_VERSION=2.1.0
+ARG CHINOOK_DATAVASE_VERSION=2.1.1
 
 LABEL \
   "us.fatehi.chinook-database.product-version"="Chinook Database ${CHINOOK_DATAVASE_VERSION}" \
