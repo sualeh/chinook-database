@@ -22,7 +22,7 @@ Download the jar from [The Central Repository][download], and unzip using a stan
 
 ### Use as Java Resources
 
-[Reference the jar file in your Maven or Gradle project](https://search.maven.org/artifact/us.fatehi/chinook-database/2.1.0/jar), and load the SQL scripts as resources in your program.
+[Reference the jar file in your Maven or Gradle project](https://search.maven.org/artifact/us.fatehi/chinook-database/2.1.2/jar), and load the SQL scripts as resources in your program.
 
 ### Use with Testcontainers
 

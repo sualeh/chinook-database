@@ -7,7 +7,7 @@
   <groupId>us.fatehi</groupId>
   <artifactId>chinook-database</artifactId>
   <packaging>jar</packaging>
-  <version>2.1.0</version>
+  <version>2.1.2</version>
   <name>Chinook Database for Java</name>
   <description>Chinook database as a Java jar, for use in Java programs and Testcontainers</description>
   <url>https://www.schemacrawler.com</url>

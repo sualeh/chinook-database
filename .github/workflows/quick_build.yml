@@ -41,7 +41,7 @@ jobs:
       uses: schemacrawler/SchemaCrawler-Action@v16.15.4
       with:
         entrypoint: /schemacrawler.sh
-        args: --server=sqlite --database=target/chinook-database-2.1.0.sqlite --title "Chinook Database, v2.1.0" --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
+        args: --server=sqlite --database=target/chinook-database-2.1.2.sqlite --title "Chinook Database, v2.1.2" --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
 
     - id: check-success
       name: Check if the SchemaCrawler run succeeded
