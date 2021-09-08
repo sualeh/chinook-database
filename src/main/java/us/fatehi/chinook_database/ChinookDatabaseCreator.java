@@ -62,18 +62,13 @@ public class ChinookDatabaseCreator implements Callable<Integer> {
       paramLabel = "<password>")
   private String passwordProvided;
 
-  @CommandLine.Option(
-      names = {"--server"},
-      description = "Server type",
-      paramLabel = "<server>")
-  private DatabaseType server;
-
   private ChinookDatabaseCreator() {}
 
   @Override
   public Integer call() {
     try (final Connection connection =
         DriverManager.getConnection(connectionUrl, user, passwordProvided); ) {
+      final DatabaseType server = DatabaseType.fromConnectionUrl(connectionUrl);
       createChinookDatabase(server, connection);
     } catch (final Exception e) {
       e.printStackTrace();

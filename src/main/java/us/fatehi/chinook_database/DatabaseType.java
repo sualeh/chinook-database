@@ -20,6 +20,8 @@ http://www.eclipse.org/legal/epl-v10.html
 */
 package us.fatehi.chinook_database;
 
+import java.util.Objects;
+
 public enum DatabaseType {
   oracle("chinook-database/Chinook_Oracle.sql"),
   db2("chinook-database/Chinook_Db2.sql"),
@@ -27,6 +29,16 @@ public enum DatabaseType {
   sqlite("chinook-database/Chinook_Sqlite.sql"),
   mysql("chinook-database/Chinook_MySql.sql"),
   postgresql("chinook-database/Chinook_PostgreSql.sql");
+
+  public static DatabaseType fromConnectionUrl(String connectionUrl) {
+    Objects.requireNonNull(connectionUrl);
+    for (final DatabaseType databaseType : values()) {
+      if (connectionUrl.startsWith("jdbc:" + databaseType.name())) {
+        return databaseType;
+      }
+    }
+    throw new IllegalArgumentException("Unknown JDBC connection URL, " + connectionUrl);
+  }
 
   private final String classPathResourcePath;
   private final String scriptSeparator;
