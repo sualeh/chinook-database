@@ -40,6 +40,6 @@ public class TestMySQL {
 
   @Test
   public void mySQL() throws SQLException {
-    test(dbContainer, mysql, "`Album`", 306);
+    test(dbContainer, mysql, "`Album`", 347);
   }
 }
