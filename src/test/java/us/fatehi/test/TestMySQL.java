@@ -31,12 +31,15 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
 public class TestMySQL {
 
-  @Container private final JdbcDatabaseContainer dbContainer = new MySQLContainer();
+  @Container
+  private final JdbcDatabaseContainer<?> dbContainer =
+      new MySQLContainer<>(DockerImageName.parse("mysql").withTag("8.0.26"));
 
   @Test
   public void mySQL() throws SQLException {

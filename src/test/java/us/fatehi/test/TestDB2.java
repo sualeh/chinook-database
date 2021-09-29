@@ -31,12 +31,15 @@ import org.testcontainers.containers.Db2Container;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
 public class TestDB2 {
 
-  @Container private final JdbcDatabaseContainer dbContainer = new Db2Container().acceptLicense();
+  @Container
+  private final JdbcDatabaseContainer<?> dbContainer =
+      new Db2Container(DockerImageName.parse("ibmcom/db2").withTag("11.5.5.1")).acceptLicense();
 
   @Test
   public void db2() throws SQLException {

@@ -31,12 +31,15 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
 public class TestPostgreSQL {
 
-  @Container private final JdbcDatabaseContainer dbContainer = new PostgreSQLContainer<>();
+  @Container
+  private final JdbcDatabaseContainer<?> dbContainer =
+      new PostgreSQLContainer<>(DockerImageName.parse("postgres").withTag("13.4"));
 
   @Test
   public void postgreSQL() throws SQLException {

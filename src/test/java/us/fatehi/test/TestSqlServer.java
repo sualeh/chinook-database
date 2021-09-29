@@ -31,12 +31,17 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
 public class TestSqlServer {
 
-  @Container private final JdbcDatabaseContainer dbContainer = new MSSQLServerContainer<>();
+  @Container
+  private final JdbcDatabaseContainer<?> dbContainer =
+      new MSSQLServerContainer<>(
+          DockerImageName.parse("mcr.microsoft.com/mssql/server")
+              .withTag("2017-CU26-ubuntu-16.04"));
 
   @Test
   public void sqlServer() throws SQLException {
