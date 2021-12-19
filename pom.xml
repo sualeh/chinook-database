@@ -104,7 +104,7 @@
     <dependency>
       <groupId>com.microsoft.sqlserver</groupId>
       <artifactId>mssql-jdbc</artifactId>
-      <version>10.1.0.jre17-preview</version>
+      <version>9.4.1.jre8</version>
       <exclusions>
         <exclusion>
           <groupId>com.microsoft.azure</groupId>

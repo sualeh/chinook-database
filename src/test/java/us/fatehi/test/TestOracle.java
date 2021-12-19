@@ -31,14 +31,16 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.OracleContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @EnabledIfSystemProperty(named = "heavydb", matches = "^((?!(false|no)).)*$")
 @Testcontainers(disabledWithoutDocker = true)
 public class TestOracle {
 
   @Container
-  private final JdbcDatabaseContainer dbContainer =
-      new OracleContainer("wnameless/oracle-xe-11g-r2").withStartupTimeoutSeconds(360)
+  private final JdbcDatabaseContainer<?> dbContainer =
+      new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe").withTag("18-slim"))
+          .withStartupTimeoutSeconds(360)
           .withConnectTimeoutSeconds(180);
 
   @Test
