@@ -2,7 +2,7 @@
 ========================================================================
 Chinook Database
 http://www.schemacrawler.com
-Copyright (c) 2020-21, Sualeh Fatehi <sualeh@hotmail.com>.
+Copyright (c) 2020-2022, Sualeh Fatehi <sualeh@hotmail.com>.
 All rights reserved.
 ------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ public final class Version {
 
   private static final String ABOUT = "https://github.com/schemacrawler/chinook-database";
   private static final String PRODUCTNAME = "Chinook Database for Java";
-  private static final String VERSION = "2.1.3";
+  private static final String VERSION = "2.2.1";
 
   /**
    * Information about this product.

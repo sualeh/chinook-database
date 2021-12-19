@@ -1,7 +1,7 @@
 # ========================================================================
 # Chinook Database
 # http://www.schemacrawler.com
-# Copyright (c) 2020-21, Sualeh Fatehi <sualeh@hotmail.com>.
+# Copyright (c) 2020-2022, Sualeh Fatehi <sualeh@hotmail.com>.
 # All rights reserved.
 # ------------------------------------------------------------------------
 #
@@ -20,7 +20,7 @@
 
 FROM openjdk:8-jdk-alpine
 
-ARG CHINOOK_DATAVASE_VERSION=2.1.3
+ARG CHINOOK_DATAVASE_VERSION=2.2.1
 
 LABEL \
   "us.fatehi.chinook-database.product-version"="Chinook Database ${CHINOOK_DATAVASE_VERSION}" \
