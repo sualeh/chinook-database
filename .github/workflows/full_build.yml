@@ -15,7 +15,7 @@ jobs:
     - id: pull-images
       name: Pull Docker images
       run: |
-        docker pull wnameless/oracle-xe-11g-r2
+        docker pull gvenzl/oracle-xe:18-slim
         docker pull mcr.microsoft.com/mssql/server:2017-CU22-ubuntu-16.04
 
 # LINT CODE
