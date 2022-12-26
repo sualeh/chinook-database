@@ -9,7 +9,7 @@
   <name>Chinook Database for Java</name>
   <description>Chinook database as a Java jar, for use in Java programs and Testcontainers</description>
   <url>https://www.schemacrawler.com</url>
-  <inceptionYear>2020-2022</inceptionYear>
+  <inceptionYear>2020-2023</inceptionYear>
   <licenses>
     <license>
       <name>Eclipse Public License - v 1.0</name>
@@ -433,7 +433,7 @@
               <additionalOptions>
                 <additionalOption>-Xdoclint:none</additionalOption>
               </additionalOptions>
-              <bottom>Copyright © 2020-2022 {organizationName}. All rights reserved.</bottom>
+              <bottom>Copyright © 2020-2023 {organizationName}. All rights reserved.</bottom>
               <doctitle>Chinook Database for Java ${project.version}</doctitle>
             </configuration>
           </execution>
@@ -470,7 +470,7 @@
               <Implementation-Version>${project.version}</Implementation-Version>
               <Implementation-Vendor>Sualeh Fatehi, sualeh@hotmail.com</Implementation-Vendor>
               <Main-Class>us.fatehi.chinook_database.Version</Main-Class>
-              <Copyright>Copyright © 2020-2022 {organizationName}. All rights reserved.</Copyright>
+              <Copyright>Copyright © 2020-2023 {organizationName}. All rights reserved.</Copyright>
             </manifestEntries>
           </archive>
         </configuration>
