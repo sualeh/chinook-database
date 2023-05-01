@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Quick build
@@ -14,11 +18,15 @@ jobs:
     - id: prepare-maven-build
       name: Prepare Maven build
       uses: sualeh/prepare-maven-build@v1.3.3
+      with:
+        java-version: 17
 
 # BUILD AND TEST
     - id: build-test
-      name: Build all modules and run tests
+      name: Build and run tests
+      shell: bash
       run: |
+        # Build
         mvn \
           --no-transfer-progress \
           --batch-mode \
