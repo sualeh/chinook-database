@@ -48,7 +48,7 @@ jobs:
         [ ${{ env.SC_EXIT_STATUS }} -eq 0 ] || exit 1
 
     - id: push-generated-graph
-      uses: stefanzweifel/git-auto-commit-action@v4
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "Update database schema diagram from CI build"
         branch: main
