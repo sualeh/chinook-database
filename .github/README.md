@@ -1,6 +1,8 @@
 # Chinook Database for Java
 
-> [Chinook database][chinook-database] packaged as a jar, for use in Java and with Testcontainers
+[Chinook database][chinook-database] packaged as a jar, for use in Java and with Testcontainers
+
+> **:star: Star it :arrow_heading_up: if you love it!**
 
 ## About
 
