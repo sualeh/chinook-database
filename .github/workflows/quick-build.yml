@@ -12,13 +12,14 @@ jobs:
   build:
     name: Quick build
     runs-on: ubuntu-latest
-    steps:
 
     permissions:
-      # Give the default GITHUB_TOKEN write permission 
-      # to commit and push the added or changed files 
+      # Give the default GITHUB_TOKEN write permission
+      # to commit and push the added or changed files
       # to the repository.
       contents: write
+
+    steps:
 
 # SETUP BUILD ENVIRONMENT
     - id: prepare-maven-build
