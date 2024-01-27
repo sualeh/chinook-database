@@ -27,22 +27,19 @@ jobs:
         docker pull mcr.microsoft.com/mssql/server:2017-CU22-ubuntu-16.04
 
 # LINT CODE
+    - id: read-env
+      name: Use super-linter environmental variables
+      shell: bash
+      run: |
+        # Use super-linter environmental variables
+        cat .github/super-linter.env >> "$GITHUB_ENV"
     - id: lint-code-base
       name: Lint Code Base
-      uses: docker://github/super-linter:v2.2.2
+      uses: github/super-linter/slim@v5.0.0
       env:
-        VALIDATE_ALL_CODEBASE: true
-        VALIDATE_YAML: true
-        VALIDATE_JSON: true
-        VALIDATE_XML: true
-        VALIDATE_MD: true
-        VALIDATE_BASH: true
-        VALIDATE_PYTHON: false
-        VALIDATE_RUBY: false
-        VALIDATE_JAVASCRIPT_ES: true
-        VALIDATE_DOCKER: true
-        VALIDATE_CSS: true
-        VALIDATE_ENV: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEFAULT_BRANCH: main
+
 
 # BUILD AND TEST
     - id: build-test
