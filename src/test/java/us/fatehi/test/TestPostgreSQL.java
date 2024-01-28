@@ -43,6 +43,6 @@ public class TestPostgreSQL {
 
   @Test
   public void postgreSQL() throws SQLException {
-    test(dbContainer, postgresql, "\"Album\"", 347);
+    test(dbContainer, postgresql, "album", 347);
   }
 }
