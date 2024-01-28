@@ -328,10 +328,10 @@
                 <copy todir="${project.build.directory}/generated-resources/chinook-database" overwrite="true" encoding="Cp1252" outputencoding="UTF-8">
                   <fileset dir="${project.build.directory}/lerocha-chinook-database-sql" includes="*Db2.sql" />
                 </copy>
-                <copy todir="${project.build.directory}/generated-resources/chinook-database" overwrite="true" encoding="UTF-16" outputencoding="UTF-8">
+                <copy todir="${project.build.directory}/generated-resources/chinook-database" overwrite="true" encoding="UTF-8" outputencoding="UTF-8">
                   <fileset dir="${project.build.directory}/lerocha-chinook-database-sql" includes="*SqlServer*.sql" />
                 </copy>
-                <copy todir="${project.build.directory}/generated-resources/chinook-database" overwrite="true" encoding="ASCII" outputencoding="UTF-8">
+                <copy todir="${project.build.directory}/generated-resources/chinook-database" overwrite="true" encoding="UTF-8" outputencoding="UTF-8">
                   <fileset dir="${project.build.directory}/lerocha-chinook-database-sql" includes="*PostgreSql*.sql" />
                 </copy>
                 <copy todir="${project.build.directory}/generated-resources/chinook-database" overwrite="true" encoding="UTF-8" outputencoding="UTF-8">
