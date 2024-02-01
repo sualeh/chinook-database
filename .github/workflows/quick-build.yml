@@ -33,6 +33,15 @@ jobs:
           --batch-mode \
           package
 
+# UPLOAD SQLite DATABASE
+    - id: upload-sqlite
+      name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: chinook-sqlite
+        path: target/chinook-database-2.2.1.sqlite
+
+
   diagram:
     name: Generate diagram
     runs-on: ubuntu-latest
@@ -47,12 +56,24 @@ jobs:
 
     steps:
 
+# DOWNLOAD SQLite DATABASE
+    - id: download-sqlite
+      name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: chinook-sqlite
+    - id: list-files
+      name: List All Files
+      run: |
+        # List all files in the current directory
+        ls -al
+
 # GENERATE SchemaCrawler DIAGRAM
     - id: schemacrawler
       name: Run SchemaCrawler Action with specified command-line
       uses: schemacrawler/SchemaCrawler-Action@v16.21.1
       with:
-        entrypoint: /schemacrawler.sh
+        entrypoint: /opt/schemacrawler/bin/schemacrawler.sh
         args: --server=sqlite --database=target/chinook-database-2.2.1.sqlite --title "Chinook Database, v2.2.1" --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
 
     - id: check-success
