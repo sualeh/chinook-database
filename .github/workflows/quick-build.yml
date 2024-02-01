@@ -76,7 +76,7 @@ jobs:
       name: Run SchemaCrawler Action with specified command-line
       uses: schemacrawler/SchemaCrawler-Action@v16.21.1
       with:
-        entrypoint: /opt/schemacrawler/bin/schemacrawler.sh
+        entrypoint: /schemacrawler.sh
         args: --server=sqlite --database=chinook-database-2.2.1.sqlite --title "Chinook Database, v2.2.1" --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
 
 # UPLOAD SQLite DATABASE
