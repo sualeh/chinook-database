@@ -24,6 +24,7 @@ import static us.fatehi.chinook_database.DatabaseType.oracle;
 import static us.fatehi.test.utility.TestUtils.test;
 
 import java.sql.SQLException;
+import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
@@ -39,13 +40,13 @@ public class TestOracle {
 
   @Container
   private final JdbcDatabaseContainer<?> dbContainer =
-      new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe").withTag("18-slim"))
-          .withStartupTimeoutSeconds(360)
+      new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe").withTag("21-slim"))
+          .withStartupTimeout(Duration.ofMinutes(3))
           .withConnectTimeoutSeconds(180);
 
   @Test
   public void oracle() throws SQLException {
     System.setProperty("oracle.jdbc.timezoneAsRegion", Boolean.FALSE.toString());
-    test(dbContainer, oracle, "Album", 347);
+    test(dbContainer, oracle, "TEST.ARTIST", 275);
   }
 }
