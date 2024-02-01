@@ -43,6 +43,7 @@ jobs:
         retention-days: 3
 
 
+
   diagram:
     name: Generate diagram
     runs-on: ubuntu-latest
@@ -63,6 +64,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: chinook-sqlite
+
     - id: list-files
       name: List All Files
       run: |
@@ -76,6 +78,15 @@ jobs:
       with:
         entrypoint: /opt/schemacrawler/bin/schemacrawler.sh
         args: --server=sqlite --database=chinook-database-2.2.1.sqlite --title "Chinook Database, v2.2.1" --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
+
+# UPLOAD SQLite DATABASE
+    - id: upload-diagram
+      name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: schema-diagram
+        path: chinook_schema_diagram.png
+        retention-days: 3
 
     - id: check-success
       name: Fail the entire job if SchemaCrawler run failed
