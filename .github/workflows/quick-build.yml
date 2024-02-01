@@ -40,6 +40,7 @@ jobs:
       with:
         name: chinook-sqlite
         path: target/chinook-database-2.2.1.sqlite
+        retention-days: 3
 
 
   diagram:
@@ -59,7 +60,7 @@ jobs:
 # DOWNLOAD SQLite DATABASE
     - id: download-sqlite
       name: Download Artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: chinook-sqlite
     - id: list-files
@@ -74,7 +75,7 @@ jobs:
       uses: schemacrawler/SchemaCrawler-Action@v16.21.1
       with:
         entrypoint: /opt/schemacrawler/bin/schemacrawler.sh
-        args: --server=sqlite --database=target/chinook-database-2.2.1.sqlite --title "Chinook Database, v2.2.1" --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
+        args: --server=sqlite --database=chinook-database-2.2.1.sqlite --title "Chinook Database, v2.2.1" --info-level=standard --command=schema --output-file chinook_schema_diagram.png --log-level=CONFIG
 
     - id: check-success
       name: Fail the entire job if SchemaCrawler run failed
